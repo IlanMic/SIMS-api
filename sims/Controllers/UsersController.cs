@@ -5,53 +5,54 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using sims.Models;
+using Sims.Data;
+using Sims.Models;
 
 namespace sims.Controllers
 {
-    [Route("api/formats")]
+    [Route("api/users")]
     [ApiController]
-    public class FormatsController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly SimsContext _context;
 
-        public FormatsController(SimsContext context)
+        public UsersController(SimsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Formats
+        // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Format>>> GetFormats()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Formats.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
-        // GET: api/Formats/5
+        // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Format>> GetFormat(int id)
+        public async Task<ActionResult<User>> GetUser(long id)
         {
-            var format = await _context.Formats.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
 
-            if (format == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return format;
+            return user;
         }
 
-        // PUT: api/Formats/5
+        // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFormat(int id, Format format)
+        public async Task<IActionResult> PutUser(long id, User user)
         {
-            if (id != format.Id)
+            if (id != user.IdUser)
             {
                 return BadRequest();
             }
 
-            _context.Entry(format).State = EntityState.Modified;
+            _context.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +60,7 @@ namespace sims.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FormatExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -72,37 +73,36 @@ namespace sims.Controllers
             return NoContent();
         }
 
-        // POST: api/Formats
+        // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Format>> PostFormat(Format format)
+        public async Task<ActionResult<User>> PostUser(User user)
         {
-            _context.Formats.Add(format);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetFormat", new { id = format.Id }, format);
-            return CreatedAtAction(nameof(GetFormat), new { id = format.Id }, format);
+            return CreatedAtAction("GetUser", new { id = user.IdUser }, user);
         }
 
-        // DELETE: api/Formats/5
+        // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFormat(int id)
+        public async Task<IActionResult> DeleteUser(long id)
         {
-            var format = await _context.Formats.FindAsync(id);
-            if (format == null)
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Formats.Remove(format);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool FormatExists(int id)
+        private bool UserExists(long id)
         {
-            return _context.Formats.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.IdUser == id);
         }
     }
 }

@@ -10,49 +10,49 @@ using Sims.Models;
 
 namespace sims.Controllers
 {
-    [Route("api/professions")]
+    [Route("api/formats")]
     [ApiController]
-    public class ProfessionsController : ControllerBase
+    public class DataFormatsController : ControllerBase
     {
         private readonly SimsContext _context;
 
-        public ProfessionsController(SimsContext context)
+        public DataFormatsController(SimsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Professions
+        // GET: api/DataFormats
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Profession>>> GetProfessions()
+        public async Task<ActionResult<IEnumerable<DataFormat>>> GetDataFormats()
         {
-            return await _context.Professions.ToListAsync();
+            return await _context.DataFormats.ToListAsync();
         }
 
-        // GET: api/Professions/5
+        // GET: api/DataFormats/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Profession>> GetProfession(int id)
+        public async Task<ActionResult<DataFormat>> GetDataFormat(int id)
         {
-            var profession = await _context.Professions.FindAsync(id);
+            var dataFormat = await _context.DataFormats.FindAsync(id);
 
-            if (profession == null)
+            if (dataFormat == null)
             {
                 return NotFound();
             }
 
-            return profession;
+            return dataFormat;
         }
 
-        // PUT: api/Professions/5
+        // PUT: api/DataFormats/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProfession(int id, Profession profession)
+        public async Task<IActionResult> PutDataFormat(int id, DataFormat dataFormat)
         {
-            if (id != profession.IdProfession)
+            if (id != dataFormat.IdDataFormat)
             {
                 return BadRequest();
             }
 
-            _context.Entry(profession).State = EntityState.Modified;
+            _context.Entry(dataFormat).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace sims.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProfessionExists(id))
+                if (!DataFormatExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace sims.Controllers
             return NoContent();
         }
 
-        // POST: api/Professions
+        // POST: api/DataFormats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Profession>> PostProfession(Profession profession)
+        public async Task<ActionResult<DataFormat>> PostDataFormat(DataFormat dataFormat)
         {
-            _context.Professions.Add(profession);
+            _context.DataFormats.Add(dataFormat);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProfession", new { id = profession.IdProfession }, profession);
+            return CreatedAtAction("GetDataFormat", new { id = dataFormat.IdDataFormat }, dataFormat);
         }
 
-        // DELETE: api/Professions/5
+        // DELETE: api/DataFormats/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProfession(int id)
+        public async Task<IActionResult> DeleteDataFormat(int id)
         {
-            var profession = await _context.Professions.FindAsync(id);
-            if (profession == null)
+            var dataFormat = await _context.DataFormats.FindAsync(id);
+            if (dataFormat == null)
             {
                 return NotFound();
             }
 
-            _context.Professions.Remove(profession);
+            _context.DataFormats.Remove(dataFormat);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ProfessionExists(int id)
+        private bool DataFormatExists(int id)
         {
-            return _context.Professions.Any(e => e.IdProfession == id);
+            return _context.DataFormats.Any(e => e.IdDataFormat == id);
         }
     }
 }

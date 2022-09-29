@@ -10,49 +10,49 @@ using Sims.Models;
 
 namespace sims.Controllers
 {
-    [Route("api/professions")]
+    [Route("api/datum")]
     [ApiController]
-    public class ProfessionsController : ControllerBase
+    public class OpenDatumsController : ControllerBase
     {
         private readonly SimsContext _context;
 
-        public ProfessionsController(SimsContext context)
+        public OpenDatumsController(SimsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Professions
+        // GET: api/OpenDatums
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Profession>>> GetProfessions()
+        public async Task<ActionResult<IEnumerable<OpenDatum>>> GetOpenData()
         {
-            return await _context.Professions.ToListAsync();
+            return await _context.OpenData.ToListAsync();
         }
 
-        // GET: api/Professions/5
+        // GET: api/OpenDatums/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Profession>> GetProfession(int id)
+        public async Task<ActionResult<OpenDatum>> GetOpenDatum(long id)
         {
-            var profession = await _context.Professions.FindAsync(id);
+            var openDatum = await _context.OpenData.FindAsync(id);
 
-            if (profession == null)
+            if (openDatum == null)
             {
                 return NotFound();
             }
 
-            return profession;
+            return openDatum;
         }
 
-        // PUT: api/Professions/5
+        // PUT: api/OpenDatums/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProfession(int id, Profession profession)
+        public async Task<IActionResult> PutOpenDatum(long id, OpenDatum openDatum)
         {
-            if (id != profession.IdProfession)
+            if (id != openDatum.IdData)
             {
                 return BadRequest();
             }
 
-            _context.Entry(profession).State = EntityState.Modified;
+            _context.Entry(openDatum).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace sims.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProfessionExists(id))
+                if (!OpenDatumExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace sims.Controllers
             return NoContent();
         }
 
-        // POST: api/Professions
+        // POST: api/OpenDatums
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Profession>> PostProfession(Profession profession)
+        public async Task<ActionResult<OpenDatum>> PostOpenDatum(OpenDatum openDatum)
         {
-            _context.Professions.Add(profession);
+            _context.OpenData.Add(openDatum);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProfession", new { id = profession.IdProfession }, profession);
+            return CreatedAtAction("GetOpenDatum", new { id = openDatum.IdData }, openDatum);
         }
 
-        // DELETE: api/Professions/5
+        // DELETE: api/OpenDatums/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProfession(int id)
+        public async Task<IActionResult> DeleteOpenDatum(long id)
         {
-            var profession = await _context.Professions.FindAsync(id);
-            if (profession == null)
+            var openDatum = await _context.OpenData.FindAsync(id);
+            if (openDatum == null)
             {
                 return NotFound();
             }
 
-            _context.Professions.Remove(profession);
+            _context.OpenData.Remove(openDatum);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ProfessionExists(int id)
+        private bool OpenDatumExists(long id)
         {
-            return _context.Professions.Any(e => e.IdProfession == id);
+            return _context.OpenData.Any(e => e.IdData == id);
         }
     }
 }

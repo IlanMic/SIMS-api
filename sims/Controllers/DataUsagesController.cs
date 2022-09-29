@@ -10,49 +10,49 @@ using Sims.Models;
 
 namespace sims.Controllers
 {
-    [Route("api/professions")]
+    [Route("api/datausages")]
     [ApiController]
-    public class ProfessionsController : ControllerBase
+    public class DataUsagesController : ControllerBase
     {
         private readonly SimsContext _context;
 
-        public ProfessionsController(SimsContext context)
+        public DataUsagesController(SimsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Professions
+        // GET: api/DataUsages
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Profession>>> GetProfessions()
+        public async Task<ActionResult<IEnumerable<DataUsage>>> GetDataUsages()
         {
-            return await _context.Professions.ToListAsync();
+            return await _context.DataUsages.ToListAsync();
         }
 
-        // GET: api/Professions/5
+        // GET: api/DataUsages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Profession>> GetProfession(int id)
+        public async Task<ActionResult<DataUsage>> GetDataUsage(long id)
         {
-            var profession = await _context.Professions.FindAsync(id);
+            var dataUsage = await _context.DataUsages.FindAsync(id);
 
-            if (profession == null)
+            if (dataUsage == null)
             {
                 return NotFound();
             }
 
-            return profession;
+            return dataUsage;
         }
 
-        // PUT: api/Professions/5
+        // PUT: api/DataUsages/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProfession(int id, Profession profession)
+        public async Task<IActionResult> PutDataUsage(long id, DataUsage dataUsage)
         {
-            if (id != profession.IdProfession)
+            if (id != dataUsage.IdDataUsage)
             {
                 return BadRequest();
             }
 
-            _context.Entry(profession).State = EntityState.Modified;
+            _context.Entry(dataUsage).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace sims.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProfessionExists(id))
+                if (!DataUsageExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace sims.Controllers
             return NoContent();
         }
 
-        // POST: api/Professions
+        // POST: api/DataUsages
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Profession>> PostProfession(Profession profession)
+        public async Task<ActionResult<DataUsage>> PostDataUsage(DataUsage dataUsage)
         {
-            _context.Professions.Add(profession);
+            _context.DataUsages.Add(dataUsage);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProfession", new { id = profession.IdProfession }, profession);
+            return CreatedAtAction("GetDataUsage", new { id = dataUsage.IdDataUsage }, dataUsage);
         }
 
-        // DELETE: api/Professions/5
+        // DELETE: api/DataUsages/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProfession(int id)
+        public async Task<IActionResult> DeleteDataUsage(long id)
         {
-            var profession = await _context.Professions.FindAsync(id);
-            if (profession == null)
+            var dataUsage = await _context.DataUsages.FindAsync(id);
+            if (dataUsage == null)
             {
                 return NotFound();
             }
 
-            _context.Professions.Remove(profession);
+            _context.DataUsages.Remove(dataUsage);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ProfessionExists(int id)
+        private bool DataUsageExists(long id)
         {
-            return _context.Professions.Any(e => e.IdProfession == id);
+            return _context.DataUsages.Any(e => e.IdDataUsage == id);
         }
     }
 }

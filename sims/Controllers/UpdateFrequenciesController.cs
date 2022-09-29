@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using sims.Models;
+using Sims.Data;
+using Sims.Models;
 
 namespace sims.Controllers
 {
@@ -46,7 +47,7 @@ namespace sims.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUpdateFrequency(int id, UpdateFrequency updateFrequency)
         {
-            if (id != updateFrequency.Id)
+            if (id != updateFrequency.IdUpdateFrequency)
             {
                 return BadRequest();
             }
@@ -80,8 +81,7 @@ namespace sims.Controllers
             _context.UpdateFrequencies.Add(updateFrequency);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetUpdateFrequency", new { id = updateFrequency.Id }, updateFrequency);
-            return CreatedAtAction(nameof(GetUpdateFrequency), new { id = updateFrequency.Id }, updateFrequency);
+            return CreatedAtAction("GetUpdateFrequency", new { id = updateFrequency.IdUpdateFrequency }, updateFrequency);
         }
 
         // DELETE: api/UpdateFrequencies/5
@@ -102,7 +102,7 @@ namespace sims.Controllers
 
         private bool UpdateFrequencyExists(int id)
         {
-            return _context.UpdateFrequencies.Any(e => e.Id == id);
+            return _context.UpdateFrequencies.Any(e => e.IdUpdateFrequency == id);
         }
     }
 }

@@ -5,53 +5,54 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using sims.Models;
+using Sims.Data;
+using Sims.Models;
 
 namespace sims.Controllers
 {
     [Route("api/themes")]
     [ApiController]
-    public class ThemesController : ControllerBase
+    public class DataThemesController : ControllerBase
     {
         private readonly SimsContext _context;
 
-        public ThemesController(SimsContext context)
+        public DataThemesController(SimsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Themes
+        // GET: api/DataThemes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Theme>>> GetThemes()
+        public async Task<ActionResult<IEnumerable<DataTheme>>> GetDataThemes()
         {
-            return await _context.Themes.ToListAsync();
+            return await _context.DataThemes.ToListAsync();
         }
 
-        // GET: api/Themes/5
+        // GET: api/DataThemes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Theme>> GetTheme(int id)
+        public async Task<ActionResult<DataTheme>> GetDataTheme(int id)
         {
-            var theme = await _context.Themes.FindAsync(id);
+            var dataTheme = await _context.DataThemes.FindAsync(id);
 
-            if (theme == null)
+            if (dataTheme == null)
             {
                 return NotFound();
             }
 
-            return theme;
+            return dataTheme;
         }
 
-        // PUT: api/Themes/5
+        // PUT: api/DataThemes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTheme(int id, Theme theme)
+        public async Task<IActionResult> PutDataTheme(int id, DataTheme dataTheme)
         {
-            if (id != theme.Id)
+            if (id != dataTheme.IdDataTheme)
             {
                 return BadRequest();
             }
 
-            _context.Entry(theme).State = EntityState.Modified;
+            _context.Entry(dataTheme).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +60,7 @@ namespace sims.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ThemeExists(id))
+                if (!DataThemeExists(id))
                 {
                     return NotFound();
                 }
@@ -72,37 +73,36 @@ namespace sims.Controllers
             return NoContent();
         }
 
-        // POST: api/Themes
+        // POST: api/DataThemes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Theme>> PostTheme(Theme theme)
+        public async Task<ActionResult<DataTheme>> PostDataTheme(DataTheme dataTheme)
         {
-            _context.Themes.Add(theme);
+            _context.DataThemes.Add(dataTheme);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetTheme", new { id = theme.Id }, theme);
-            return CreatedAtAction(nameof(GetTheme), new { id = theme.Id }, theme);
+            return CreatedAtAction("GetDataTheme", new { id = dataTheme.IdDataTheme }, dataTheme);
         }
 
-        // DELETE: api/Themes/5
+        // DELETE: api/DataThemes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTheme(int id)
+        public async Task<IActionResult> DeleteDataTheme(int id)
         {
-            var theme = await _context.Themes.FindAsync(id);
-            if (theme == null)
+            var dataTheme = await _context.DataThemes.FindAsync(id);
+            if (dataTheme == null)
             {
                 return NotFound();
             }
 
-            _context.Themes.Remove(theme);
+            _context.DataThemes.Remove(dataTheme);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ThemeExists(int id)
+        private bool DataThemeExists(int id)
         {
-            return _context.Themes.Any(e => e.Id == id);
+            return _context.DataThemes.Any(e => e.IdDataTheme == id);
         }
     }
 }

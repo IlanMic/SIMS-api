@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using sims.Models;
+using Sims.Data;
+using Sims.Models;
 
 namespace sims.Controllers
 {
@@ -46,7 +47,7 @@ namespace sims.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDataOwner(long id, DataOwner dataOwner)
         {
-            if (id != dataOwner.Id)
+            if (id != dataOwner.IdDataOwner)
             {
                 return BadRequest();
             }
@@ -80,8 +81,7 @@ namespace sims.Controllers
             _context.DataOwners.Add(dataOwner);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetDataOwner", new { id = dataOwner.Id }, dataOwner);
-            return CreatedAtAction(nameof(GetDataOwner), new { id = dataOwner.Id }, dataOwner);
+            return CreatedAtAction("GetDataOwner", new { id = dataOwner.IdDataOwner }, dataOwner);
         }
 
         // DELETE: api/DataOwners/5
@@ -102,7 +102,7 @@ namespace sims.Controllers
 
         private bool DataOwnerExists(long id)
         {
-            return _context.DataOwners.Any(e => e.Id == id);
+            return _context.DataOwners.Any(e => e.IdDataOwner == id);
         }
     }
 }

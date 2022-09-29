@@ -1,9 +1,18 @@
-﻿namespace sims.Models
-{
-    public class UpdateFrequency
-    {
-        public int Id { get; set; }
+﻿using System;
+using System.Collections.Generic;
 
-        public string? NameUpdateFrequency { get; set; }
+namespace Sims.Models
+{
+    public partial class UpdateFrequency
+    {
+        public UpdateFrequency()
+        {
+            OpenData = new HashSet<OpenDatum>();
+        }
+
+        public int IdUpdateFrequency { get; set; }
+        public string UpdateFrequencyName { get; set; } = null!;
+
+        public virtual ICollection<OpenDatum> OpenData { get; set; }
     }
 }

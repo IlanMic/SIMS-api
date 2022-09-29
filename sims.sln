@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sims", "sims\sims.csproj", "{7A1D3F67-6C6D-49AF-8B2B-8FA7B7065F0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sims", "sims\sims.csproj", "{D5D54E5E-DC24-4A2C-8841-794140A32F71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7A1D3F67-6C6D-49AF-8B2B-8FA7B7065F0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A1D3F67-6C6D-49AF-8B2B-8FA7B7065F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A1D3F67-6C6D-49AF-8B2B-8FA7B7065F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A1D3F67-6C6D-49AF-8B2B-8FA7B7065F0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5D54E5E-DC24-4A2C-8841-794140A32F71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5D54E5E-DC24-4A2C-8841-794140A32F71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5D54E5E-DC24-4A2C-8841-794140A32F71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5D54E5E-DC24-4A2C-8841-794140A32F71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {EA356877-F798-4AB7-986F-5994FC35F631}
+		SolutionGuid = {23419099-0770-4FB1-8795-E5A94572EA84}
 	EndGlobalSection
 EndGlobal
