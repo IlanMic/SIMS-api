@@ -19,7 +19,10 @@ builder.Services.AddDbContext<SimsContext>(
 
 var app = builder.Build();
 
+//Logging calls to the API, so called "Middleware"
+app.UseHttpLogging();
 // Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
