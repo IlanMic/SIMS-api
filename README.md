@@ -1,12 +1,12 @@
 # SIMS-API Documentation
 
-##### Learn how to use the API and its ressource to keep track of the use of open data in Sweden. This API is provided by DIGG and the group 7 of the SIMS project from the Mittuniversitetet.
+##### Learn how to use the API and its resource to keep track of the use of open data in Sweden. This API is provided by DIGG and the group 7 of the SIMS project from the Mittuniversitetet.
 ###### This document describes the resources that are part of the SIMS api.
 
 
 ## Schema
 
-The API can be accessed via HTTPS from `https://localhost:7076/swagger/index.html`. All data is transfered as JSON format.
+The API can be accessed via HTTPS from `https://localhost:7076/swagger/index.html`. All data is transferred as JSON format.
 
 Instead of omitting blank attributes, they are included as blank.
 
@@ -203,8 +203,8 @@ StatusCode: 200
 
 | HTTP Status Code |         Meaning         | Description                                                                    |
 |------------------|-------------------------|--------------------------------------------------------------------------------|
-| __200__          | _OK_                    | The request was succesfully executed                                           |
-| __201__          | _Created_               | The resource was succesfully created (POST method)                             |
+| __200__          | _OK_                    | The request was successfully executed                                           |
+| __201__          | _Created_               | The resource was successfully created (POST method)                             |
 | __400__          | _Bad Request_           | The input of the request is wrong and thus, the request cannot be executed     |
 | __404__          | _Not Found_             | The researched resource doesn't exist and thus the request cannot be executed  |
 | __500__          | _Internal Server Error_ | An issue happened server-side and thus, the request cannot be executed         |
