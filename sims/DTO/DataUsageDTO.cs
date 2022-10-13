@@ -12,6 +12,6 @@
         public virtual DataFormatDTO DataFormat { get; set; } = null!;
         public virtual DataLanguageDTO Language { get; set; } = null!;
         public virtual OpenDatumDTO OpenData { get; set; } = null!;
-        public virtual UserDTO? User { get; set; }
+
     }
 }

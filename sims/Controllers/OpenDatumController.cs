@@ -23,6 +23,8 @@ namespace sims.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OpenDatumDTO>>> GetData()
         {
+
+
             var openDatum = _context.OpenData
                 .Include(x => x.DataOwner)
                 .Include(x => x.DataTheme)
@@ -60,6 +62,21 @@ namespace sims.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<OpenDatumDTO>> GetDataById(long id)
         {
+
+            //Tracking the use of the open data sets, Steps: 1# Create logging in data_usage with 
+            Console.WriteLine(this.Request.Host.Value); // localhost: 7076
+            Console.WriteLine(this.Request.Method);     // GET
+            Console.WriteLine(this.Request.Path);       // /api/opendatum/1
+            Console.WriteLine(DateTime.Now.ToString()); // 12/10/2022 14:55:20
+
+            //Ignore separate files or functions, make everything track for this one get first
+            //1 Ignore hostvalue for now (Qualitative)
+            //2 Store GET as a dataUsage where "IsDownloaded:1"
+
+            //3 Path tells us that the idData(FK) is 1, ie belongs to open_data 1
+
+            //4 Store datetime under dataUsages/dateofUsage
+
             OpenDatumDTO openData = await _context.OpenData
                 .Include(x => x.DataOwner)
                 .Include(x => x.DataTheme)

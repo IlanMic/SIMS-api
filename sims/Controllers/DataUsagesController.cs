@@ -30,9 +30,6 @@ namespace sims.Controllers
                 .Include(x => x.OpenData.DataOwner)
                 .Include(x => x.OpenData.UpdateFrequency)
                 .Include(x => x.Language)
-                .Include(x => x.User)
-                .Include(x => x.User.UserProfession)
-                .Include(x => x.User.UserProfessionField)
                 .ToList();
             var dataUsageDTOs = new List<DataUsageDTO>();
             foreach (var dataUsage in dataUsages)
@@ -72,24 +69,6 @@ namespace sims.Controllers
                     {
                         IdDataLanguage = dataUsage.Language.IdDataLanguage,
                         DataLanguageName = dataUsage.Language.DataLanguageName
-                    },
-                    User = dataUsage.User == null ? null as UserDTO : new UserDTO
-                    {
-                        IdUser = dataUsage.User.IdUser,
-                        UserName = dataUsage.User.UserName,
-                        UserCompany = dataUsage.User.UserCompany,
-                        UserMail = dataUsage.User.UserMail,
-                        UserProfession = dataUsage.User.UserProfession == null ? null as ProfessionDTO : new ProfessionDTO
-                        {
-                            IdProfession = dataUsage.User.UserProfession.IdProfession,
-                            ProfessionName = dataUsage.User.UserProfession.ProfessionName
-                        },
-                        UserProfessionField = dataUsage.User.UserProfessionField == null ? null as ProfessionFieldDTO : new ProfessionFieldDTO
-                        {
-                            IdProfessionField = dataUsage.User.UserProfessionField.IdProfessionField,
-                            ProfessionFieldName = dataUsage.User.UserProfessionField.ProfessionFieldName
-                        }
-
                     }
                 });
             }
@@ -107,9 +86,7 @@ namespace sims.Controllers
                 .Include(x => x.OpenData.DataOwner)
                 .Include(x => x.OpenData.UpdateFrequency)
                 .Include(x => x.Language)
-                .Include(x => x.User)
-                .Include(x => x.User.UserProfession)
-                .Include(x => x.User.UserProfessionField)
+
                 .Select(datausage => new DataUsageDTO
                 {
                     IdDataUsage = datausage.IdDataUsage,
@@ -145,24 +122,6 @@ namespace sims.Controllers
                     {
                         IdDataLanguage = datausage.Language.IdDataLanguage,
                         DataLanguageName = datausage.Language.DataLanguageName
-                    },
-                    User = datausage.User == null ? null as UserDTO : new UserDTO
-                    {
-                        IdUser = datausage.User.IdUser,
-                        UserName = datausage.User.UserName,
-                        UserCompany = datausage.User.UserCompany,
-                        UserMail = datausage.User.UserMail,
-                        UserProfession = datausage.User.UserProfession == null ? null as ProfessionDTO : new ProfessionDTO
-                        {
-                            IdProfession = datausage.User.UserProfession.IdProfession,
-                            ProfessionName = datausage.User.UserProfession.ProfessionName
-                        },
-                        UserProfessionField = datausage.User.UserProfessionField == null ? null as ProfessionFieldDTO : new ProfessionFieldDTO
-                        {
-                            IdProfessionField = datausage.User.UserProfessionField.IdProfessionField,
-                            ProfessionFieldName = datausage.User.UserProfessionField.ProfessionFieldName
-                        }
-
                     }
                 }).FirstOrDefaultAsync(datausage => datausage.IdDataUsage == id);
             if (openData == null)
@@ -186,7 +145,6 @@ namespace sims.Controllers
                 IsDownloaded = DataUsageToPost.IsDownloaded,
                 LanguageId = DataUsageToPost.Language.IdDataLanguage,
                 DataFormatId = DataUsageToPost.DataFormat.IdDataFormat,
-                UsedBy = DataUsageToPost.User.IdUser,
                 OpenDataId = DataUsageToPost.OpenData.IdData
             };
             _context.DataUsages.Add(entity);
@@ -204,7 +162,6 @@ namespace sims.Controllers
             entity.IsDownloaded = DataUsageToChange.IsDownloaded;
             entity.OpenDataId = DataUsageToChange.OpenData.IdData;
             entity.DataFormatId = DataUsageToChange.DataFormat.IdDataFormat;
-            entity.UsedBy = DataUsageToChange.User.IdUser;
             entity.LanguageId = DataUsageToChange.Language.IdDataLanguage;
             await _context.SaveChangesAsync();
             return HttpStatusCode.OK;

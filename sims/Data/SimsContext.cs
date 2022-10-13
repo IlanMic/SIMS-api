@@ -23,10 +23,7 @@ namespace Sims.Data
         public virtual DbSet<DataTheme> DataThemes { get; set; } = null!;
         public virtual DbSet<DataUsage> DataUsages { get; set; } = null!;
         public virtual DbSet<OpenDatum> OpenData { get; set; } = null!;
-        public virtual DbSet<Profession> Professions { get; set; } = null!;
-        public virtual DbSet<ProfessionField> ProfessionFields { get; set; } = null!;
         public virtual DbSet<UpdateFrequency> UpdateFrequencies { get; set; } = null!;
-        public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -102,8 +99,6 @@ namespace Sims.Data
 
                 entity.HasIndex(e => e.OpenDataId, "index_open_data_id");
 
-                entity.HasIndex(e => e.UsedBy, "index_used_by");
-
                 entity.Property(e => e.IdDataUsage).HasColumnName("id_data_usage");
 
                 entity.Property(e => e.DataFormatId).HasColumnName("data_format_id");
@@ -118,7 +113,6 @@ namespace Sims.Data
 
                 entity.Property(e => e.OpenDataId).HasColumnName("open_data_id");
 
-                entity.Property(e => e.UsedBy).HasColumnName("used_by");
 
                 entity.HasOne(d => d.DataFormat)
                     .WithMany(p => p.DataUsages)
@@ -138,10 +132,6 @@ namespace Sims.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("data_usage_ibfk_1");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.DataUsages)
-                    .HasForeignKey(d => d.UsedBy)
-                    .HasConstraintName("data_usage_ibfk_4");
             });
 
             modelBuilder.Entity<OpenDatum>(entity =>
@@ -190,43 +180,6 @@ namespace Sims.Data
                     .HasConstraintName("open_data_ibfk_2");
             });
 
-            modelBuilder.Entity<Profession>(entity =>
-            {
-                entity.HasKey(e => e.IdProfession)
-                    .HasName("PRIMARY");
-
-                entity.ToTable("profession");
-
-                entity.Property(e => e.IdProfession).HasColumnName("id_profession");
-
-                entity.Property(e => e.ProfessionName)
-                    .HasMaxLength(250)
-                    .HasColumnName("profession_name");
-            });
-
-            modelBuilder.Entity<ProfessionField>(entity =>
-            {
-                entity.HasKey(e => e.IdProfessionField)
-                    .HasName("PRIMARY");
-
-                entity.ToTable("profession_field");
-
-                entity.HasIndex(e => e.ProfessionId, "index_profession_id");
-
-                entity.Property(e => e.IdProfessionField).HasColumnName("id_profession_field");
-
-                entity.Property(e => e.ProfessionFieldName)
-                    .HasMaxLength(250)
-                    .HasColumnName("profession_field_name");
-
-                entity.Property(e => e.ProfessionId).HasColumnName("profession_id");
-
-                entity.HasOne(d => d.Profession)
-                    .WithMany(p => p.ProfessionFields)
-                    .HasForeignKey(d => d.ProfessionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("profession_field_ibfk_1");
-            });
 
             modelBuilder.Entity<UpdateFrequency>(entity =>
             {
@@ -242,51 +195,6 @@ namespace Sims.Data
                     .HasColumnName("update_frequency_name");
             });
 
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.HasKey(e => e.IdUser)
-                    .HasName("PRIMARY");
-
-                entity.ToTable("user");
-
-                entity.HasIndex(e => e.UserProfessionFieldId, "index_user_profession_field_id");
-
-                entity.HasIndex(e => e.UserProfessionId, "index_user_profession_id");
-
-                entity.Property(e => e.IdUser).HasColumnName("id_user");
-
-                entity.Property(e => e.UserCompany)
-                    .HasMaxLength(250)
-                    .HasColumnName("user_company");
-
-                entity.Property(e => e.UserMail)
-                    .HasMaxLength(250)
-                    .HasColumnName("user_mail");
-
-                entity.Property(e => e.UserName)
-                    .HasMaxLength(250)
-                    .HasColumnName("user_name");
-
-                entity.Property(e => e.UserPicture)
-                    .HasColumnType("blob")
-                    .HasColumnName("user_picture");
-
-                entity.Property(e => e.UserProfessionFieldId).HasColumnName("user_profession_field_id");
-
-                entity.Property(e => e.UserProfessionId).HasColumnName("user_profession_id");
-
-                entity.HasOne(d => d.UserProfessionField)
-                    .WithMany(p => p.Users)
-                    .HasForeignKey(d => d.UserProfessionFieldId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("user_ibfk_2");
-
-                entity.HasOne(d => d.UserProfession)
-                    .WithMany(p => p.Users)
-                    .HasForeignKey(d => d.UserProfessionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("user_ibfk_1");
-            });
 
             OnModelCreatingPartial(modelBuilder);
         }

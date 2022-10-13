@@ -14,13 +14,10 @@
         }
     }
     public class LogSaver
-    {
-        Logfile log;
-
-        public void SavetoDB()
+    { 
+        public void SavetoDB(Logfile log)
         {
             Console.WriteLine("Test");
         }
-
     }
 }

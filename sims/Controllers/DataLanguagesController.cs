@@ -5,7 +5,6 @@ using sims.DTO;
 using Sims.Models;
 using System.Net;
 using Microsoft.EntityFrameworkCore;
-using sims.LoggingFunctions;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 
 namespace sims.Controllers
@@ -27,13 +26,7 @@ namespace sims.Controllers
         {
             var dataLanguages = _context.DataLanguages.ToList();
             var dataLanguageDTOs = new List<DataLanguageDTO>();
-            //Accessexamples of this object
-            Console.WriteLine(this.Request.Host.Value);
-            Console.WriteLine(this.Request.Method);
-            Console.WriteLine(this.Request.Path);
-            Console.WriteLine(DateTime.Now.ToString());
 
-            //LoggingFunctions.
             foreach (var dataLanguage in dataLanguages)
             {
                 dataLanguageDTOs.Add(new DataLanguageDTO
