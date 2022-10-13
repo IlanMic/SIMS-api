@@ -1,12 +1,12 @@
 # SIMS-API Documentation
 
-##### Learn how to use the API and its ressource to keep track of the use of open data in Sweden. This API is provided by DIGG and the group 7 of the SIMS project from the Mittuniversitetet.
+##### Learn how to use the API and its resource to keep track of the use of open data in Sweden. This API is provided by DIGG and the group 7 of the SIMS project from the Mittuniversitetet.
 ###### This document describes the resources that are part of the SIMS api.
 
 
 ## Schema
 
-The API can be accessed via HTTPS from `https://localhost:7076/swagger/index.html`. All data is transfered as JSON format.
+The API can be accessed via HTTPS from `https://localhost:7076/swagger/index.html`. All data is transferred as JSON format.
 
 Instead of omitting blank attributes, they are included as blank.
 
@@ -30,7 +30,7 @@ A user can now:
 * Post a resource
 * Update a resource
 
-Additionnally, an user will be able to:
+Additionally, an user will be able to:
 * Delete a resource
 
 ## Resources
@@ -47,10 +47,8 @@ The resources of the API are the following ones:
 | __Data Theme__ | _datathemes_ | Represents the theme of an open data subject (transports, energy or health for example ) |
 |  __Data Usage__ | _datausages_ | Represents how the data has been used (downloaded or not, the date of usage, the user if known, ...) |
 | __Open Data__ | _opendatum_ | Represents the used data with the access url. It can be accessed in different way but that will be for the data usage resource. |
-| __Profession__ | _professions_ | Represents the profession of an user such as developer, journalist or researcher. |
-| __Profession Field__ | _professionfields_ | Represents the field where an user work: a journalist can work in sports or trading journalism for example. |
 | __Update Frequency__ | _updatefrequencies_ | Represents the regularity in which a file is updated |
-| __User__ | _users_ | Represent an user that access data |
+
 
 
 ## Usage of the resources
@@ -203,8 +201,8 @@ StatusCode: 200
 
 | HTTP Status Code |         Meaning         | Description                                                                    |
 |------------------|-------------------------|--------------------------------------------------------------------------------|
-| __200__          | _OK_                    | The request was succesfully executed                                           |
-| __201__          | _Created_               | The resource was succesfully created (POST method)                             |
+| __200__          | _OK_                    | The request was successfully executed                                           |
+| __201__          | _Created_               | The resource was successfully created (POST method)                             |
 | __400__          | _Bad Request_           | The input of the request is wrong and thus, the request cannot be executed     |
 | __404__          | _Not Found_             | The researched resource doesn't exist and thus the request cannot be executed  |
 | __500__          | _Internal Server Error_ | An issue happened server-side and thus, the request cannot be executed         |
