@@ -78,22 +78,6 @@ namespace sims.Migrations
                 .Annotation("Relational:Collation", "utf8mb4_general_ci");
 
             migrationBuilder.CreateTable(
-                name: "profession",
-                columns: table => new
-                {
-                    id_profession = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    profession_name = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false, collation: "utf8mb4_general_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PRIMARY", x => x.id_profession);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4")
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
-
-            migrationBuilder.CreateTable(
                 name: "update_frequency",
                 columns: table => new
                 {
@@ -105,28 +89,6 @@ namespace sims.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PRIMARY", x => x.id_update_frequency);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4")
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
-
-            migrationBuilder.CreateTable(
-                name: "profession_field",
-                columns: table => new
-                {
-                    id_profession_field = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    profession_field_name = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false, collation: "utf8mb4_general_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    profession_id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PRIMARY", x => x.id_profession_field);
-                    table.ForeignKey(
-                        name: "profession_field_ibfk_1",
-                        column: x => x.profession_id,
-                        principalTable: "profession",
-                        principalColumn: "id_profession");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4")
                 .Annotation("Relational:Collation", "utf8mb4_general_ci");
@@ -167,39 +129,6 @@ namespace sims.Migrations
                 .Annotation("Relational:Collation", "utf8mb4_general_ci");
 
             migrationBuilder.CreateTable(
-                name: "user",
-                columns: table => new
-                {
-                    id_user = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    user_profession_id = table.Column<int>(type: "int", nullable: false),
-                    user_profession_field_id = table.Column<int>(type: "int", nullable: false),
-                    user_name = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: true, collation: "utf8mb4_general_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    user_mail = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: true, collation: "utf8mb4_general_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    user_company = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: true, collation: "utf8mb4_general_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    user_picture = table.Column<byte[]>(type: "blob", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PRIMARY", x => x.id_user);
-                    table.ForeignKey(
-                        name: "user_ibfk_1",
-                        column: x => x.user_profession_id,
-                        principalTable: "profession",
-                        principalColumn: "id_profession");
-                    table.ForeignKey(
-                        name: "user_ibfk_2",
-                        column: x => x.user_profession_field_id,
-                        principalTable: "profession_field",
-                        principalColumn: "id_profession_field");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4")
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
-
-            migrationBuilder.CreateTable(
                 name: "data_usage",
                 columns: table => new
                 {
@@ -210,7 +139,6 @@ namespace sims.Migrations
                     data_format_id = table.Column<int>(type: "int", nullable: false),
                     language_id = table.Column<int>(type: "int", nullable: false),
                     is_downloaded = table.Column<sbyte>(type: "tinyint", nullable: false),
-                    used_by = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -230,11 +158,6 @@ namespace sims.Migrations
                         column: x => x.language_id,
                         principalTable: "data_language",
                         principalColumn: "id_data_language");
-                    table.ForeignKey(
-                        name: "data_usage_ibfk_4",
-                        column: x => x.used_by,
-                        principalTable: "user",
-                        principalColumn: "id_user");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4")
                 .Annotation("Relational:Collation", "utf8mb4_general_ci");
@@ -255,11 +178,6 @@ namespace sims.Migrations
                 column: "open_data_id");
 
             migrationBuilder.CreateIndex(
-                name: "index_used_by",
-                table: "data_usage",
-                column: "used_by");
-
-            migrationBuilder.CreateIndex(
                 name: "index_data_owner_id",
                 table: "open_data",
                 column: "data_owner_id");
@@ -274,20 +192,7 @@ namespace sims.Migrations
                 table: "open_data",
                 column: "update_frequency_id");
 
-            migrationBuilder.CreateIndex(
-                name: "index_profession_id",
-                table: "profession_field",
-                column: "profession_id");
 
-            migrationBuilder.CreateIndex(
-                name: "index_user_profession_field_id",
-                table: "user",
-                column: "user_profession_field_id");
-
-            migrationBuilder.CreateIndex(
-                name: "index_user_profession_id",
-                table: "user",
-                column: "user_profession_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -304,8 +209,6 @@ namespace sims.Migrations
             migrationBuilder.DropTable(
                 name: "data_language");
 
-            migrationBuilder.DropTable(
-                name: "user");
 
             migrationBuilder.DropTable(
                 name: "data_owner");
@@ -315,12 +218,6 @@ namespace sims.Migrations
 
             migrationBuilder.DropTable(
                 name: "data_theme");
-
-            migrationBuilder.DropTable(
-                name: "profession_field");
-
-            migrationBuilder.DropTable(
-                name: "profession");
         }
     }
 }

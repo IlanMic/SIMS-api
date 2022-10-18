@@ -125,9 +125,7 @@ namespace sims.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("open_data_id");
 
-                    b.Property<long?>("UsedBy")
-                        .HasColumnType("bigint")
-                        .HasColumnName("used_by");
+
 
                     b.HasKey("IdDataUsage")
                         .HasName("PRIMARY");
@@ -137,8 +135,6 @@ namespace sims.Migrations
                     b.HasIndex(new[] { "LanguageId" }, "index_language_id");
 
                     b.HasIndex(new[] { "OpenDataId" }, "index_open_data_id");
-
-                    b.HasIndex(new[] { "UsedBy" }, "index_used_by");
 
                     b.ToTable("data_usage", (string)null);
                 });
@@ -184,50 +180,6 @@ namespace sims.Migrations
                     b.ToTable("open_data", (string)null);
                 });
 
-            modelBuilder.Entity("Sims.Models.Profession", b =>
-                {
-                    b.Property<int>("IdProfession")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id_profession");
-
-                    b.Property<string>("ProfessionName")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("profession_name");
-
-                    b.HasKey("IdProfession")
-                        .HasName("PRIMARY");
-
-                    b.ToTable("profession", (string)null);
-                });
-
-            modelBuilder.Entity("Sims.Models.ProfessionField", b =>
-                {
-                    b.Property<int>("IdProfessionField")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id_profession_field");
-
-                    b.Property<string>("ProfessionFieldName")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("profession_field_name");
-
-                    b.Property<int>("ProfessionId")
-                        .HasColumnType("int")
-                        .HasColumnName("profession_id");
-
-                    b.HasKey("IdProfessionField")
-                        .HasName("PRIMARY");
-
-                    b.HasIndex(new[] { "ProfessionId" }, "index_profession_id");
-
-                    b.ToTable("profession_field", (string)null);
-                });
-
             modelBuilder.Entity("Sims.Models.UpdateFrequency", b =>
                 {
                     b.Property<int>("IdUpdateFrequency")
@@ -245,51 +197,7 @@ namespace sims.Migrations
                         .HasName("PRIMARY");
 
                     b.ToTable("update_frequency", (string)null);
-                });
-
-            modelBuilder.Entity("Sims.Models.User", b =>
-                {
-                    b.Property<long>("IdUser")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id_user");
-
-                    b.Property<string>("UserCompany")
-                        .HasMaxLength(250)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("user_company");
-
-                    b.Property<string>("UserMail")
-                        .HasMaxLength(250)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("user_mail");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(250)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("user_name");
-
-                    b.Property<byte[]>("UserPicture")
-                        .HasColumnType("blob")
-                        .HasColumnName("user_picture");
-
-                    b.Property<int>("UserProfessionFieldId")
-                        .HasColumnType("int")
-                        .HasColumnName("user_profession_field_id");
-
-                    b.Property<int>("UserProfessionId")
-                        .HasColumnType("int")
-                        .HasColumnName("user_profession_id");
-
-                    b.HasKey("IdUser")
-                        .HasName("PRIMARY");
-
-                    b.HasIndex(new[] { "UserProfessionFieldId" }, "index_user_profession_field_id");
-
-                    b.HasIndex(new[] { "UserProfessionId" }, "index_user_profession_id");
-
-                    b.ToTable("user", (string)null);
-                });
+                });     
 
             modelBuilder.Entity("Sims.Models.DataUsage", b =>
                 {
@@ -311,10 +219,6 @@ namespace sims.Migrations
                         .IsRequired()
                         .HasConstraintName("data_usage_ibfk_1");
 
-                    b.HasOne("Sims.Models.User", "UsedByNavigation")
-                        .WithMany("DataUsages")
-                        .HasForeignKey("UsedBy")
-                        .HasConstraintName("data_usage_ibfk_4");
 
                     b.Navigation("DataFormat");
 
@@ -322,7 +226,7 @@ namespace sims.Migrations
 
                     b.Navigation("OpenData");
 
-                    b.Navigation("UsedByNavigation");
+
                 });
 
             modelBuilder.Entity("Sims.Models.OpenDatum", b =>
@@ -352,36 +256,6 @@ namespace sims.Migrations
                     b.Navigation("UpdateFrequency");
                 });
 
-            modelBuilder.Entity("Sims.Models.ProfessionField", b =>
-                {
-                    b.HasOne("Sims.Models.Profession", "Profession")
-                        .WithMany("ProfessionFields")
-                        .HasForeignKey("ProfessionId")
-                        .IsRequired()
-                        .HasConstraintName("profession_field_ibfk_1");
-
-                    b.Navigation("Profession");
-                });
-
-            modelBuilder.Entity("Sims.Models.User", b =>
-                {
-                    b.HasOne("Sims.Models.ProfessionField", "UserProfessionField")
-                        .WithMany("Users")
-                        .HasForeignKey("UserProfessionFieldId")
-                        .IsRequired()
-                        .HasConstraintName("user_ibfk_2");
-
-                    b.HasOne("Sims.Models.Profession", "UserProfession")
-                        .WithMany("Users")
-                        .HasForeignKey("UserProfessionId")
-                        .IsRequired()
-                        .HasConstraintName("user_ibfk_1");
-
-                    b.Navigation("UserProfession");
-
-                    b.Navigation("UserProfessionField");
-                });
-
             modelBuilder.Entity("Sims.Models.DataFormat", b =>
                 {
                     b.Navigation("DataUsages");
@@ -407,27 +281,11 @@ namespace sims.Migrations
                     b.Navigation("DataUsages");
                 });
 
-            modelBuilder.Entity("Sims.Models.Profession", b =>
-                {
-                    b.Navigation("ProfessionFields");
-
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Sims.Models.ProfessionField", b =>
-                {
-                    b.Navigation("Users");
-                });
-
             modelBuilder.Entity("Sims.Models.UpdateFrequency", b =>
                 {
                     b.Navigation("OpenData");
                 });
 
-            modelBuilder.Entity("Sims.Models.User", b =>
-                {
-                    b.Navigation("DataUsages");
-                });
 #pragma warning restore 612, 618
         }
     }
